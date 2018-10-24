@@ -1,0 +1,1 @@
+Matriz	Etiqueta	Probabilidad	Posicion	Señal	Secuencia
