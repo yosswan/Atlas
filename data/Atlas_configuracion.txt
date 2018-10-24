@@ -1,0 +1,34 @@
+﻿NOMBRE DE ARCHIVO DE SECUENCIA :
+SECUENCIA
+NOMBRE DE ARCHIVO DE MATRICES JASPAR [Single batch file (.txt)] :
+jaspar.txt
+PORCENTAGE MÍNIMO DE UNIÓN :
+0.8
+
+******************************************************************
+DESARROLLADO POR : Carlos Francisco Moncada Sosa
+	Proyecto de Aprendizaje Automatico
+******************************************************************
+Altas es una prueba en JAVA de el algoritmo de Markov para
+para buscar sitios de unión de factor de transcripción en 
+una secuencia mediante el uso de matrices de tipo PWM, JASPAR
+
+Dependencias en el directorio "/data"
+
+******************************************************************
+Atlas_configuracion.txt
+	Respetar la estructura de las primeras 6 lineas para el correcto
+	funcionamiento de la aplicacion. 
+		NOMBRE DE ARCHIVO DE SECUENCIA :
+		*nombre de archivo que incluye la secuencia*
+		NOMBRE DE ARCHIVO DE MATRICES JASPAR [Single batch file (.txt)] :
+		*nombre de archivo fuente JASPAR en formato Single batch file (.txt)*
+		PORCENTAGE MÍNIMO DE UNIÓN :
+		*valor flotante entre 0 y 1*
+
+******************************************************************
+Salida.txt
+	Archivo de salida con el formato
+		Matriz	Etiqueta	Probabilidad	Posicion	Señal	Secuencia
+	La linea 0 describe esta estructura
+	Tomar en cuenta TABULADOR como separador de las columnas ( \t )
