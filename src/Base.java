@@ -21,8 +21,9 @@ public class Base {
     
     public static void TfBind(ArrayList<Jaspar> PPM, String secuencia, float MinProb) throws FileNotFoundException, IOException{
             char[] ArregloSec = secuencia.toCharArray();
-            Writer output = new BufferedWriter(new FileWriter("Salida.txt"));
-            output.append("Matriz\tEtiqueta\tProbabilidad\tPosicion\tSeñal\tSecuencia");
+            Escritor escritor = new Escritor();
+            //Writer output = new BufferedWriter(new FileWriter("Salida.txt"));
+            //output.append("Matriz\tEtiqueta\tProbabilidad\tPosicion\tSeñal\tSecuencia");
             for (int j = 0; j < PPM.size(); j++) {
             
                 for (int pos = 0; pos < (ArregloSec.length - PPM.get(j).A.length + 1); pos++) {
@@ -52,13 +53,14 @@ public class Base {
                                 Prob = Prob * PPM.get(j).T[tracer];
                                 break;
                             default:
-                                System.out.println(String.format("It's a mystery"));
+                                System.out.println(String.format("It's a mystery ") + ArregloCadena[tracer]);
                                 break;
                             }
                     }
                     if(Prob >= MinProb ){
-                        output.append("\n");
-                        output.append(PPM.get(j).Matriz + "\t" + PPM.get(j).Etiqueta + "\t"+ String.format("%f" , Prob) +"\t"  + (pos+1) + "\t" + PPM.get(j).Senal + "\t\t"+  SubCadena );
+                        //output.append("\n");
+                        //output.append(PPM.get(j).Matriz + "\t" + PPM.get(j).Etiqueta + "\t"+ String.format("%f" , Prob) +"\t"  + (pos+1) + "\t" + PPM.get(j).Senal + "\t\t"+  SubCadena );
+                        escritor.AñadirFactor(new Factor(PPM.get(j).Matriz, PPM.get(j).Etiqueta, "", SubCadena, Prob, pos+1));
                         System.out.println(PPM.get(j).Matriz + "\t" + PPM.get(j).Etiqueta + "\t"+ String.format("%f" , Prob) +"\t"  + (pos+1) + "\t\t" + PPM.get(j).Senal + "\t"+  SubCadena );   
                     }
                     //System.out.println("subcadena " + pos);
@@ -66,7 +68,8 @@ public class Base {
                 //11986
                 //System.out.println("factor " + j);
             }
-            output.close ();
+            escritor.GuardarFactores();
+            //output.close ();
             showMessageDialog(null, "Atlas ha terminado!");
     }
     
@@ -83,6 +86,12 @@ public class Base {
 
         //String matriz = "JASPAR2018_CORE_plants_non-redundant_pfms_jaspar.txt";
         //String matriz = "JASPAR2018_CORE_non-redundant_pfms_jaspar.txt";
+        
+        lector = (new Scanner( new java.io.FileInputStream(secuencia) ));
+        while(lector.hasNext()){
+            secuencia = lector.nextLine();
+            //System.out.println(secuencia);
+        }
         
         ArrayList<Jaspar> tfactors;
         tfactors = j_connection.getTFactors(matriz);
